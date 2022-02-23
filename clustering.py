@@ -85,7 +85,6 @@ iterations = len(permutations)
 
 i = 0
 winner = {"letters": [], "points": 999, "dsm": {}}
-winner_points = 999
 for permutation in permutations:
     i += 1
     dsm_temp = letdsm2numdsm(dsm_original, permutation, let2num)

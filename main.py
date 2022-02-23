@@ -30,6 +30,29 @@ def measure(dsm_num, weight=1):
     return points
 
 
+def measure2(dsm_num):
+    permutation = list(dsm_num.keys())
+    points = 0
+    for i in range(len(permutation)):
+        for n in range(1, len(permutation) - i):
+            points += count_square(dsm_num, i, n + 1) / cluster_size(n + 1)
+    return -points
+
+
+def count_square(dsm, corner, n):
+    count = 0
+    for i in range(n):
+        element = corner + i
+        for x in dsm[element]:
+            if x in list(range(corner, corner + n)):
+                count += 1
+    return count
+
+
+def cluster_size(n):
+    return n * n - n
+
+
 # https://www.geeksforgeeks.org/generate-all-the-permutation-of-a-list-in-python/
 # Algorithm to generate permutations obtained from the above page
 def permutation_generator(lst):
@@ -66,7 +89,7 @@ winner_points = 999
 for permutation in permutations:
     i += 1
     dsm_temp = letdsm2numdsm(dsm_original, permutation, let2num)
-    points = measure(dsm_temp)
+    points = measure2(dsm_temp)
     if points < winner["points"]:
         winner["points"] = points
         letters = list(range(size))
